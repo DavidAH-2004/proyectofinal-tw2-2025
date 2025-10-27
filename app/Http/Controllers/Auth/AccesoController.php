@@ -18,44 +18,44 @@ class AccesoController extends Controller
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:6'
         ],[
-            'email.required' => 'El correo electronico es obligatorio',
-            'email.email' => '>Debe ingrsar un correo valido',
-            'email.max' => 'El correo no puede tener mas de 255 caracteres',
-            'email.required' => 'La contraseña es oblogatoria',
-            'email.string' => 'La contraseña debe ser una cadena de texto',
-            'email.min' => 'La contraseña debe tener al menos 6 caracteres',
+            'email.required' => 'El correo electrónico es obligatorio',
+            'email.email' => 'Debe ingresar un correo electrónico válido',
+            'email.max' => 'El correo electrónico no puede tener más de 255 caracteres',
+            'password.required' => 'La contraseña es obligatoria',
+            'password.string' => 'La contraseña debe ser una cadena de texto',
+            'password.min' => 'La contraseña debe tener al menos 6 caractéres',
         ]);
 
-        if($validator->fails()){
-            if($request->ajax()){
+        if( $validator->fails() ){
+            if( $request->ajax() ){
                 return response()->json([
                     'success' => false,
                     'errors' => $validator->errors()
                 ], 422);
             }
 
-        return redirect()
-        ->back()
-        ->withErrors($validator)
-        ->withImput($request->only('email'));
-
+            return redirect()
+            ->back()
+            ->withErrors( $validator )
+            ->withInput( $request->only('email') );
         }
 
-        $credenciales = $request->only('email','password');
+        $credenciales = $request->only('email', 'password');
 
-        if(Auth::attempt($credenciales)){
+        if( Auth::attempt( $credenciales ) ){
             $request->session()->regenerate();
             $usuario = Auth::user();
 
-
-            if($request->ajax()){
+            if( $request->ajax() ){
                 return response()->json([
                     'success' => true,
-                    'mensaje' => 'Inicio de sesion exitoso',
+                    'message' => 'Inicio de sesión exitoso',
                     'redirect' => ''
                 ]);
             }
-
         }
+
+
+        
     }
 }

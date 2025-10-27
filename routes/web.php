@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AccesoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +15,10 @@ use App\Http\Controllers\Auth\AccesoController;
 |
 */
 
+Route::get('/', function () {
 /*Route::get('/', function () {
     return view('welcome');
+});
 });*/
 
 Route::get('/', [AccesoController::class, 'mostrarFormulario'])->name('acceso');
