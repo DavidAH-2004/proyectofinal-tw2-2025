@@ -17,11 +17,17 @@ class AccesoController extends Controller
         return view('auth.acceso');
     }
     public function iniciarSesion(Request $request){
-@@ -25,37 +28,87 @@ public function iniciarSesion(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|min:6'
+        ],[
+            'email.required' => 'El correo electrónico es obligatorio',
+            'email.email' => 'Debe ingresar un correo electrónico válido',
+            'email.max' => 'El correo electrónico no puede tener más de 255 caracteres',
+            'password.required' => 'La contraseña es obligatoria',
             'password.string' => 'La contraseña debe ser una cadena de texto',
             'password.min' => 'La contraseña debe tener al menos 6 caractéres',
         ]);
-
         if( $validator->fails() ){
             if( $request->ajax() ){
                 return response()->json([
@@ -29,19 +35,15 @@ class AccesoController extends Controller
                     'errors' => $validator->errors()
                 ], 422);
             }
-
             return redirect()
             ->back()
             ->withErrors( $validator )
             ->withInput( $request->only('email') );
         }
-
         $credenciales = $request->only('email', 'password');
-
         if( Auth::attempt( $credenciales ) ){
             $request->session()->regenerate();
             $usuario = Auth::user();
-
             if( !$usuario->tipo ){
                 Auth::logout();
                 if ($request->ajax() ){
@@ -59,7 +61,6 @@ class AccesoController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Inicio de sesión exitoso',
-                    'redirect' => ''
                     'redirect' => $this->obtenerUrlRedireccion($usuario)
                 ]);
             }
@@ -109,8 +110,5 @@ class AccesoController extends Controller
             default:
                 return route('acceso');
         }
-
-
-        
     }
 }
