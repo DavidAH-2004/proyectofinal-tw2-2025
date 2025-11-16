@@ -14,18 +14,18 @@ class Calificacion extends Model
 
     protected $fillable = [
         'calificacion',
-        'materias_x_usuarios'
+        'materias_x_usuarios_id'
     ];
 
-      public function materiasXUsuarios(){
-        return $this->hasMany(MateriasXUsuarios::class, 'materias_x_usuarios_id');
+    public function materiasXUsuarios(){
+        return $this->belongsTo(MateriasXUsuario::class, 'materias_x_usuarios_id');
     }
 
-      public function materias(){
+    public function materias(){
         return $this->hasOneThrough(Materia::class, 'id', 'id', 'materias_x_usuarios_id', 'materias_id');
     }
 
-      public function user(){
+    public function user(){
         return $this->hasOneThrough(User::class, 'id', 'id', 'materias_x_usuarios_id', 'materias_id');
     }
 }

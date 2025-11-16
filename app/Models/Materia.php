@@ -15,10 +15,10 @@ class Materia extends Model
     ];
 
     public function materiasXUsuarios(){
-        return $this->hasMany(MateriasXUsuarios::class, 'materias_id');
+        return $this->hasMany(MateriasXUsuario::class, 'materias_id');
     }
 
-     public function users(){
-        return $this->belongsToMany(User::class, 'materias_x_usuarios', 'materias:id', 'users_id');
-     }
+    public function users(){
+        return $this->belongsToMany(User::class, 'materias_x_usuarios', 'materias_id', 'users_id');
+    }
 }

@@ -50,7 +50,7 @@
                             <!-- Tipos de Usuario (Solo admin) -->
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('tipos.*') ? 'active' : '' }}" 
-                                   href="#">
+                                   href="{{ route('tipos.index') }}">
                                     <i class="bi bi-person-badge-fill me-1"></i>
                                     Tipos de Usuario
                                 </a>
@@ -60,7 +60,7 @@
                         <!-- Materias (Admin y profesores) -->
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('materias.*') ? 'active' : '' }}" 
-                               href="#">
+                               href="{{ route('materias.index') }}">
                                 <i class="bi bi-book-fill me-1"></i>
                                 Materias
                             </a>

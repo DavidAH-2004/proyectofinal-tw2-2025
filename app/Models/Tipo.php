@@ -14,9 +14,9 @@ class Tipo extends Model
 
     protected $fillable = [
         'tipo'
-    ];   
+    ];
 
-    public function users (){
+    public function users(){
         return $this->hasMany(User::class, 'tipos_id');
     }
 }
